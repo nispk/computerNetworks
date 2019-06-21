@@ -16,9 +16,8 @@ def parse_arguments():
 args = parse_arguments()
 
 y = np.array([2.0,3,4,5,6],dtype=np.float16)
-print y
 
-print 'sending data to pipe\n'
+print ('sending data to pipe\n',y)
 
 sys.stdout.flush()
 outputs = [os.fdopen(int(args.outputs[0]), 'wb')]

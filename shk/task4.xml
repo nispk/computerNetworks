@@ -7,10 +7,10 @@
 			</algorithm>
 			<algorithm path="Demos/system/shk" executable="./task4b.py">
 			   <input source_pi_id = "127.0.0.1" pipe_id="1"></input>
+  			   
                                 	
 			</algorithm>
-                        <algorithm path="Demos/system/shk" executable="./copy_op.py">  
-                            	
-			</algorithm>
+			<algorithm path="Demos/system/shk" executable="./task4c.py">
+                        </algorithm>
 		</node>
 	</network>
