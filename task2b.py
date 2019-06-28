@@ -14,15 +14,10 @@ def parse_arguments():
 
 args = parse_arguments()
 inputs = [os.fdopen(int(args.inputs[0]), 'rb')]
+x = inputs[0].readline()
+z = int(x,10)
+#x= inputs[0].readline()  
+y = 2*z
 
-
-
-x = np.fromfile(inputs[0],dtype=np.float16,count=5)
-
-print x
-
-#w = np.mean(x)
-#print w
-
-#print 'task2b output:'+'data received :'+ str(z)
+print 'task2b output:'+'data received :'+ str(y)
 sys.stdout.flush()

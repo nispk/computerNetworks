@@ -4,7 +4,7 @@ import socket
 import numpy as np
 
 HOST = '127.0.0.1'  # The server's hostname or IP address
-PORT = 8888        # The port used by the server
+PORT = 8881        # The port used by the server
 
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
