@@ -1,4 +1,4 @@
-# Example-3: 
+# Example-3: Send a single array to the second block and perform an arithematic operation on the received data in second block
 
 In this task, we build a simple network with a single node, two blocks and one pipe connecting the blocks.We send data between the blocks via pipe. Once the data is received by the second block it performs an arithematic operation on it and prints the output to the MARVELO output window.The network processing in MARVELO takes place in the following steps-
 
