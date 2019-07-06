@@ -71,7 +71,3 @@ Once we run the start command, we can see the **task1.py** output on the MARVELO
   1. [task1.py](https://github.com/nispk/shk_computerNetworks/blob/master/task1.py) 
   2. [task1.xml](https://github.com/nispk/shk_computerNetworks/blob/master/task1.xml)
 
-
-
-
-
