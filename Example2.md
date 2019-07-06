@@ -84,7 +84,10 @@ The xml file is saved in the path `/home/asn/asn_server/Demos/system/topology/yo
 
 We repeat the steps Step3 to Step5 as in Example1.
 
+The script for the above example can be found here-
 
-
+  1.[task2.xml](https://github.com/nispk/shk_computerNetworks/blob/master/task2.xml)
+  2.[task2a.py](https://github.com/nispk/shk_computerNetworks/blob/master/task2a.py)
+  3.[task2b.py](https://github.com/nispk/shk_computerNetworks/blob/master/task2b.py)
 
 
