@@ -17,11 +17,12 @@ The same xml file described in Example1 can be used here.
   2.  argparse module is used to create the pipe file needed to send the data to the second block.
   
   3.  We define the array y of float data type
-       ```python
-       y = np.array([2.0,3,4,5,6],dtype=np.float16)
-       outputs = [os.fdopen(int(args.outputs[0]), 'wb')]
-       outputs[0].write(y)
-       ```
+  
+      ```python
+      y = np.array([2.0,3,4,5,6],dtype=np.float16)
+      outputs = [os.fdopen(int(args.outputs[0]), 'wb')]
+      outputs[0].write(y)
+      ```
    
   4. The array is written to this pipe file using the `write` method.
 
