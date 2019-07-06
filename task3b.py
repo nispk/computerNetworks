@@ -21,8 +21,8 @@ x = np.fromfile(inputs[0],dtype=np.float16,count=5)
 
 print x
 
-#w = np.mean(x)
-#print w
+w = np.mean(x)
+print w
 
 #print 'task2b output:'+'data received :'+ str(z)
 sys.stdout.flush()
