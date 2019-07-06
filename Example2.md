@@ -92,4 +92,3 @@ The script for the above example can be found here-
   
   3.[task2b.py](https://github.com/nispk/shk_computerNetworks/blob/master/task2b.py)
 
-
