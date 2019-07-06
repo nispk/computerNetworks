@@ -48,3 +48,11 @@ The same xml file described in Example1 can be used here.
 # Step3: 
 
 We repeat the steps Step3 to Step5 as in Example1.
+
+**The scripts for the above example can be found here-**
+
+  1. [task3.xml](https://github.com/nispk/shk_computerNetworks/blob/master/task3.xml)
+  
+  2. [task3a.py](https://github.com/nispk/shk_computerNetworks/blob/master/task3a.py)
+  
+  3. [task3b.py](https://github.com/nispk/shk_computerNetworks/blob/master/task3b.py)
