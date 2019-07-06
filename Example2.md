@@ -74,7 +74,7 @@ The xml file is saved in the path `/home/asn/asn_server/Demos/system/topology/yo
 
     ```python
      inputs = [os.fdopen(int(args.inputs[0]), 'rb')]
-     np.readline(inputs[0])
+     inputs[0].readline()
     ```
   2. The `--inputs` list can be queried as `args.inputs[0]`. Here `args.input[0]` refers to the first pipe file which is defined as `pipe_id = "1"` in the xml file, appended in the `--inputs` list. 
   3. The data to be from the first block is read from this pipe file. We open a read enabled file object of `args.inputs[0]` using `os.fdopen(int(args.inputs[0]),'rb')` function and later the int data is read from the pipe through the `readline()` method.
