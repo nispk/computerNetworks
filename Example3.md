@@ -5,6 +5,7 @@ In this task, we build a simple network with a single node, two blocks and one p
 
 ## Step1: Define the network
 
+[alt text] (https://github.com/nispk/shk_computerNetworks/blob/master/example3.png "Network-Task3")
 We write an xml file that describes the distribution of nodes and their respective blocks in the network.
 The same xml file described in Example1 can be used here.
 
