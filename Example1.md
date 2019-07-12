@@ -10,6 +10,8 @@ In this task, we build a simple network with a single node, single block and zer
 
 **Step1: Define the network** 
 
+![alt text] (https://github.com/nispk/shk_computerNetworks/example1.png "Network-Task1")
+
 We write an xml file that describes the distribution of nodes and their respective blocks in the network.
 
 ```xml
