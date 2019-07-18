@@ -70,7 +70,7 @@ Once we run the start command, we can see the **task1.py** output on the MARVELO
 
 **Demo**
 
-![alt text] (https://github.com/nispk/shk_computerNetworks/blob/master/example1.gif "MARVELO-Task1")
+![alt text] (https://github.com/nispk/shk_computerNetworks/blob/master/ezgif.com-video-to-gif%20(1).gif "MARVELO-Task1")
 
 **The scripts for the above example can be found here-**
   1. [task1.py](https://github.com/nispk/shk_computerNetworks/blob/master/task1.py) 
