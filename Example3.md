@@ -1,6 +1,6 @@
 # Example-3: Send a single array to the second block and perform an arithematic operation on the received data in second block
 
-In this task, we build a simple network with a single node, two blocks and one pipe connecting the blocks.We send data between the blocks via pipe. Once the data is received by the second block it performs an arithematic operation on it and prints the output to the MARVELO output window.The network processing in MARVELO takes place in the following steps-
+In this task, we build a simple network with a single node, two blocks and one pipe connecting the blocks. We send data between the blocks via pipe. Once the data is received by the second block it performs an arithematic operation on it and prints the output to the MARVELO output window. The network processing in MARVELO takes place in the following steps-
 
 
 ## Step1: Define the network
@@ -43,7 +43,8 @@ The same xml file described in Example1 can be used here.
     inputs = [os.fdopen(int(args.inputs[0]), 'rb')]
     x =  np.fromfile(inputs[0],dtype=np.float16,count=5)
     ```
-  5. Once the pipe file inputs[0] is read enabled, the array data is read from the pipe and stored in x variable.We make use of the `np.fromfile` function to read the data from the file. the `count` parameter defines the size of the data that should be read at once from the pipe. In our input array each element is of size 16 byte as the data type that we are using `float16`. So the total size of array is 80 bytes, hence we define `count = 5`, which implies we read 80 bytes of data at once.
+    
+  5. Once the pipe file inputs[0] is read enabled, the array data is read from the pipe and stored in x variable. We make use of the `np.fromfile` function to read the data from the file. The `count` parameter defines the size of the data that should be read at once from the pipe. In our input array each element is of size 16 byte as the data type that we are using `float16`. So the total size of array is 80 bytes, hence we define `count = 5`, which implies we read 80 bytes of data at once.
 
   3. The input array is saved in the variable y. Later we perform `np.mean` operation on this array, which calculates the mean value for the values in array. This is printed to the MARVELO output window.
 
@@ -59,4 +60,10 @@ We repeat the steps Step3 to Step5 as in Example1.
   2. [task3a.py](https://github.com/nispk/shk_computerNetworks/blob/master/task3a.py)
   
   3. [task3b.py](https://github.com/nispk/shk_computerNetworks/blob/master/task3b.py)
+
+
+# Demo:
+
+[alt text] (https://github.com/nispk/shk_computerNetworks/blob/master/ezgif.com-video-to-gif.gif  "MARVELO-Task3")
+
 
