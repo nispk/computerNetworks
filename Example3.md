@@ -51,7 +51,7 @@ The same xml file described in Example1 can be used here.
 
 # Step3: 
 
-We repeat the steps Step3 to Step5 as in Example1.
+We repeat the steps Step3 to Step5 as in [Example1] (https://github.com/nispk/shk_computerNetworks/blob/master/Example1.md) .
 
 **The scripts for the above example can be found here-**
 
