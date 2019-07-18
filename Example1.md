@@ -53,10 +53,10 @@ We can either setup the server and client on the same device or use different de
 Once server is setup, run the below commands on MARVELO-
 
   1. `setxml` Defines the xml file 
-  2. `transferdata` Initiates the data transfer to the nodes
+  2. `showxml` It opens a new window and displays the network along with the pipe connections between the blocks
   3. `connect` It establishes initial connection to the nodes defined in the xml file 
-  3. `start` It triggers the *Daemon* to start the signal processing by invoking the respective executables (block codes)
-  4. `showxml` It opens a new window and displays the network along with the pipe connections between the blocks
+  3. `transferdata` Initiates the data transfer to the nodes
+  4. `start` It triggers the *Daemon* to start the signal processing by invoking the respective executables (block codes)
 
 Below commands are optional-
 
@@ -68,6 +68,9 @@ Below commands are optional-
 
 Once we run the start command, we can see the **task1.py** output on the MARVELO command window.
 
+**Demo**
+
+![alt text] (https://github.com/nispk/shk_computerNetworks/blob/master/example1.gif "MARVELO-Task1")
 
 **The scripts for the above example can be found here-**
   1. [task1.py](https://github.com/nispk/shk_computerNetworks/blob/master/task1.py) 
