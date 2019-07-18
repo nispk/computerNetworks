@@ -1,10 +1,12 @@
 # Example-2: Send an integer or float data to second block and perform an arithemtic operation on teh received data in the second block.
 
-In this task, we build a simple network with a single node, two blocks and one pipe connecting the blocks.We send data between the blocks via pipe. Once the data is received by the second block it performs an arithematic operation on it and prints the output to the MARVELO output window.The network processing in MARVELO takes place in the following steps-
+In this task, we build a simple network with a single node, two blocks and one pipe connecting the blocks. We send data between the blocks via pipe. Once the data is received by the second block it performs an arithematic operation on it and prints the output to the MARVELO output window. The network processing in MARVELO takes place in the following steps-
 
 ## Step1: Define the network** 
 
 [alt text] (https://github.com/nispk/shk_computerNetworks/blob/master/example2.png "Network- Task2")
+
+
 We write an xml file that describes the distribution of nodes and their respective blocks in the network.
 
 ```xml
@@ -23,12 +25,12 @@ We write an xml file that describes the distribution of nodes and their respecti
 New terminology used in this xml file-
 
 * `<output>` Open the output pipe.
-  * define the output node address and the `pipe_id` that connects this block to the block defined in      the output node. 
-  * In the above xml code the output of `task2a.py`  is sent to `task2b.py` block. Hence the             `target_pi_id` is the address of the node where `task2b.py` is hosted.
+  * define the output node address and the `pipe_id` that connects this block to the block defined in the output node. 
+  * In the above xml code the output of `task2a.py`  is sent to `task2b.py` block. Hence the `target_pi_id` is the address of the node where `task2b.py` is hosted.
 * `</output>` Close the output pipe.
 * `<input>` Open the input pipe.
-  * define the input node address and the `pipe_id` that connects this block to the block defined in     the input node.
-  * In the above xml code the `task2b.py` gets input from `task2a.py`.  Hence the `source_pi_id` is       the address of the node where `task2a.py` is hosted
+  * define the input node address and the `pipe_id` that connects this block to the block defined in the input node.
+  * In the above xml code the `task2b.py` gets input from `task2a.py`.  Hence the `source_pi_id` is the address of the node where `task2a.py` is hosted
 *  `</input>` Close the input pipe.
 
 The xml file is saved in the path `/home/asn/asn_server/Demos/system/topology/your_folder`
@@ -92,4 +94,9 @@ The script for the above example can be found here-
   2.[task2a.py](https://github.com/nispk/shk_computerNetworks/blob/master/task2a.py)
   
   3.[task2b.py](https://github.com/nispk/shk_computerNetworks/blob/master/task2b.py)
+
+# Demo:
+
+[alt text] (https://github.com/nispk/shk_computerNetworks/blob/master/ezgif.com-video-to-gif%20(2).gif "MARVELO-Task2")
+
 
