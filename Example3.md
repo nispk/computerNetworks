@@ -5,7 +5,7 @@ In this task, we build a simple network with a single node, two blocks and one p
 
 ## Step1: Define the network
 
-[alt text] (https://github.com/nispk/shk_computerNetworks/blob/master/example3.png "Network-Task3")
+[Network](https://github.com/nispk/shk_computerNetworks/blob/master/example3.png)
 
 
 We write an xml file that describes the distribution of nodes and their respective blocks in the network.
@@ -51,7 +51,7 @@ The same xml file described in Example1 can be used here.
 
 # Step3: 
 
-We repeat the steps Step3 to Step5 as in [Example1] (https://github.com/nispk/shk_computerNetworks/blob/master/Example1.md) .
+We repeat the steps Step3 to Step5 as in [Example1](https://github.com/nispk/shk_computerNetworks/blob/master/Example1.md) .
 
 **The scripts for the above example can be found here-**
 
@@ -64,6 +64,6 @@ We repeat the steps Step3 to Step5 as in [Example1] (https://github.com/nispk/sh
 
 # Demo:
 
-[alt text] (https://github.com/nispk/shk_computerNetworks/blob/master/ezgif.com-video-to-gif.gif  "MARVELO-Task3")
+[MARVELO-Task3](https://github.com/nispk/shk_computerNetworks/blob/master/ezgif.com-video-to-gif.gif)
 
 
