@@ -85,7 +85,7 @@ The xml file is saved in the path `/home/asn/asn_server/Demos/system/topology/yo
 
 # Step3: 
 
-We repeat the steps Step3 to Step5 as in (https://github.com/nispk/shk_computerNetworks/blob/master/Example1.md "Example1") .
+We repeat the steps Step3 to Step5 as in [Example1] (https://github.com/nispk/shk_computerNetworks/blob/master/Example1.md "Example1") .
 
 The script for the above example can be found here-
 
