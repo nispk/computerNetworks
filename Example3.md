@@ -39,10 +39,10 @@ The same xml file described in Example1 can be used here.
 
   4. The add_argument method in ArgumentParser function appends each `<input>` argument from the xml file to the `--inputs` list . 
 
-    ```python
-    inputs = [os.fdopen(int(args.inputs[0]), 'rb')]
-    x =  np.fromfile(inputs[0],dtype=np.float16,count=5)
-    ```
+          ```python
+          inputs = [os.fdopen(int(args.inputs[0]), 'rb')]
+          x =  np.fromfile(inputs[0],dtype=np.float16,count=5)
+          ```
     
   5. Once the pipe file inputs[0] is read enabled, the array data is read from the pipe and stored in x variable. We make use of the `np.fromfile` function to read the data from the file. The `count` parameter defines the size of the data that should be read at once from the pipe. In our input array each element is of size 16 byte as the data type that we are using `float16`. So the total size of array is 80 bytes, hence we define `count = 5`, which implies we read 80 bytes of data at once.
 
