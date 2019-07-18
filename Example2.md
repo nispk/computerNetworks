@@ -4,7 +4,7 @@ In this task, we build a simple network with a single node, two blocks and one p
 
 ## Step1: Define the network** 
 
-[alt text] (https://github.com/nispk/shk_computerNetworks/blob/master/example2.png "Network- Task2")
+[Network](https://github.com/nispk/shk_computerNetworks/blob/master/example2.png)
 
 
 We write an xml file that describes the distribution of nodes and their respective blocks in the network.
@@ -54,7 +54,7 @@ The xml file is saved in the path `/home/asn/asn_server/Demos/system/topology/yo
     args = parse_arguments() 
      ```
 
-   5. The add_argument method in ArgumentParser function creates a list of pipe files of int data type and appends each `<output>` argument from the xml file to the `--outputs` list . Since there is only one output pipe defined in the xml file, there will be only one pipe file               appended to the `--outputs` list. 
+   5. The add_argument method in ArgumentParser function creates a list of pipe files of int data type and appends each `<output>` argument from the xml file to the `--outputs` list . Since there is only one output pipe defined in the xml file, there will be only one pipe file appended to the `--outputs` list. 
 
        ```python
        outputs = [os.fdopen(int(args.outputs[0]), 'wb')]
@@ -85,7 +85,7 @@ The xml file is saved in the path `/home/asn/asn_server/Demos/system/topology/yo
 
 # Step3: 
 
-We repeat the steps Step3 to Step5 as in [Example1] (https://github.com/nispk/shk_computerNetworks/blob/master/Example1.md "Example1") .
+We repeat the steps Step3 to Step5 as in [Example1](https://github.com/nispk/shk_computerNetworks/blob/master/Example1.md) .
 
 The script for the above example can be found here-
 
@@ -97,6 +97,6 @@ The script for the above example can be found here-
 
 # Demo:
 
-[alt text] (https://github.com/nispk/shk_computerNetworks/blob/master/ezgif.com-video-to-gif%20(2).gif "MARVELO-Task2")
+[MARVELO-Task2](https://github.com/nispk/shk_computerNetworks/blob/master/ezgif.com-video-to-gif%20(2).gif)
 
 
