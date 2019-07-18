@@ -6,7 +6,7 @@ We go through step by step tutorial on how to use MARVELO by giving examples for
 
 ## Example-1: Print 'Hello World!' on the MARVELO output window.
 
-In this task, we build a simple network with a single node, single block and zero pipes.The MARVELO will read the block and print its output on the MARVELO output window.For the MARVELO to do the network processing, we need to build the network and initiate MARVELO to connect the network and let the nodes communicate with each other.
+In this task, we build a simple network with a single node, single block and zero pipes. The MARVELO will read the block and print its output on the MARVELO output window. For the MARVELO to do the network processing, we need to build the network and initiate MARVELO to connect the network and let the nodes communicate with each other.
 
 **Step1: Define the network** 
 
@@ -37,7 +37,7 @@ The xml file is saved in the path `/home/asn/asn_server/Demos/system/topology/yo
 
 **Step2: Define the block code**- 
 
-MARVELO framework has 2 main roles in the network- server and client.In the above example the server is fed with xml data. The client is the node present in the network. Each client hosts a single Daemon process.The Daemon process receives the orders from the server through **CMD port** to process the block code **task1.py** and executes the block code. It returns the output of the **task1.py** to the server via **MSG port**. This output is printed on the MARVELO output window.
+MARVELO framework has 2 main roles in the network- server and client. In the above example the server is fed with xml data. The client is the node present in the network. Each client hosts a single Daemon process.The Daemon process receives the orders from the server through **CMD port** to process the block code **task1.py** and executes the block code. It returns the output of the **task1.py** to the server via **MSG port**. This output is printed on the MARVELO output window.
 
 This block code file is saved in the path defined in the xml file.
 
