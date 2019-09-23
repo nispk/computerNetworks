@@ -257,6 +257,18 @@ class Mininet_wifi(Mininet):
         self.nameToNode[name] = sta
         return sta
 
+
+    def get_processing_capacity(self,sta):
+       x = sta.cmd('top -b -d1 -n1|grep -i "Cpu(s)"|cut -c 37-40')
+       print 'processsing capacity of',sta, 'is', x
+
+    def processing_capacity_csv(self,nodes):
+        processing_capacity = []
+        for sta in nodes:
+            x = sta.cmd('top -b -d1 -n1|grep -i "Cpu(s)"|cut -c 37-40')
+            processing_capacity.append(x)
+        np.savetxt('cpu_usage.csv',[p for p in zip(nodes,processing_capacity)],    delimiter=',', fmt='%s')
+
     def pathloss_logDistance(self,sta,dist,wlan):
              """Path Loss Model:
              (f) signal frequency transmited(Hz)
@@ -281,7 +293,7 @@ class Mininet_wifi(Mininet):
              calculated
              exponent: The exponent of the Path Loss propagation model, where 2
              is for propagation in free space
-             (dist) is the distance between the transmitter and the receiver (m)"""
+             (dist) is the distance between the transmitter and the receiver(m)"""
              #sta1 = self.nameToNode[staa]
              #sta2 = self.nameToNode[stab]
             # print ('***************',type(sta1),type(exp))
@@ -306,45 +318,29 @@ class Mininet_wifi(Mininet):
              return attn
 
     def attenuation_csv(self,nodes,counter):
-            for i in range(nodes):
-                sta_attn[i]=[nodes[i]]
-            while (counter<6):
-                for sta in nodes:
-                    for next in nodes:
-                        if(next == sta):
-                            for i in range(nodes):
-                                if(next == nodes[i]):
-                                    sta_attn[i].append(0)
-                        if(next != sta):
-                            print (type(next),type(sta))
-                            attn = self.logDistance(sta,next,4)
-                            for i in range(nodes):
-                                if (nodes[i]==next):
-                                    sta_attn[i].append(attn)
+        attn = 0
 
-                export_data = {'stations' :nodes, attn[i]:sta_attn[i] for i in range(nodes)}
+        #print('%%%%%%%%%%%%%%%%%')
+        while (counter<=6):
+            #print('is this working?')
+            sta_attn = {keys: [] for keys in nodes}
+            for src in nodes:
+                for dst in nodes:
+                    if(src == dst):
+                        sta_attn[src].append(0)
+                    else:
+                        attn = self.logDistance(src,dst,4)
+                        sta_attn[src].append(attn)
+            export_data = {'stations':nodes}
+            for i in nodes:
+                export_data[str(i)]= sta_attn[i]
+            filename = 'attenuation_'+str(counter)+'.csv'
+            df = pd.DataFrame(export_data, columns=['stations']+[str(i) for i in nodes])
 
-                filename = "attenuation_" + str(counter) + ".csv"
-                path = '/home/asn/'
-                df = DataFrame(export_data, columns=['stations',sta_attn[i] for i in range(nodes)]
-                df.to_csv(filename, index=None, header=True)
-                counter = counter + 1
+            df.to_csv(filename, index=None, header=True)
+            print('export to csv')
+            counter = counter + 1
 
-    def get_processing_capacity(self,sta):
-        x = sta.cmd('top -b -d1 -n1|grep -i "Cpu(s)"|cut -c 37-40')
-        print 'processsing capacity of',sta, 'is', x
-
-
-    def processing_capacity_csv(self,nodes):
-        processing_capacity = []
-        for sta in nodes:
-            x = sta.cmd('top -b -d1 -n1|grep -i "Cpu(s)"|cut -c 37-40')
-            processing_capacity.append(x)
-        np.savetxt('cpu_usage.csv',[p for p in zip(nodes,processing_capacity)], delimiter=',', fmt='%s')
-
-
-        #command = 'top -b -d1 -n1|grep -i "Cpu(s)"|cut -c 37-40'
-        #sub = subprocess.Popen([command], shell = True, preexec_fn=os.setsid)
 
     def add6LoWPAN(self, name, cls=None, **params):
         node = sixlowpan.add6LoWPAN(name, cls, **params)
@@ -2070,3 +2066,4 @@ class MininetWithControlWNet(Mininet_wifi):
                 error('*** Error: control network test failed\n')
                 exit(1)
         info('\n')
+
