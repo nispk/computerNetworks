@@ -114,9 +114,7 @@ def get_cpu_usage(stations,duration=1,count=1):
     returns a single list of measured CPU fractions as floats.
     """
     #pid = startProcSta(stations) #start a process on stations to create cpuacct file
-    """Example/test of link and CPU bandwidth limits
-           bw: interface bandwidth limit in Mbps
-           cpu: cpu limit as fraction of overall CPU time"""
+    
 
     outputs = {}
     time = {}
@@ -130,7 +128,7 @@ def get_cpu_usage(stations,duration=1,count=1):
             time[station] = float(f.read())
         t_start[station] = station.cmd('date +%s%N')
 
-    for _ in range(count):
+    for _ in range(count): # count decides number of screenshots of cpu_usage for each station to be taken.
         sleep(duration)
         for station in stations:
             ip = station.params['ip']
@@ -168,7 +166,7 @@ def topology(mobility):
                     info( '*** RT Scheduler is not enabled in your kernel. '
                           'Skipping this test\n' )
                     continue
-            Station = custom(CPULimitedStation, sched=sched, cpu=0.5)
+            Station = custom(CPULimitedStation, sched=sched, cpu=0.5)  #cpu: cpu limit as fraction of overall CPU time. each station assigned cpu limit using CPULimitedStation class
 
 
     net = Mininet_wifi(link = wmediumd, wmediumd_mode = interference, controller= Controller, station = Station)
