@@ -47,6 +47,7 @@ def pathloss_logDistance(sta,dist,wlan):
 
          return pathLoss_
 
+
 def logDistance(sta1,sta2,exp):
          """Log Distance Propagation Loss Model:
          ref_d (m): The distance at which the reference loss is
