@@ -2,20 +2,13 @@
     Mininet-WiFi: A simple networking testbed for Wireless OpenFlow/SDWN!
 author: Ramon Fontes (ramonrf@dca.fee.unicamp.br)"""
 import pandas as pd
-import math
 import numpy as np
-import os
-import random
-import re
-import sys
+import os , math ,random, re, sys, select, signal
 from sys import version_info as py_version_info
-import select
-import signal
 from time import sleep
 from itertools import chain, groupby
 from math import ceil
 from six import string_types
-
 from mininet.cli import CLI
 from mininet.term import cleanUpScreens, makeTerms
 from mininet.net import Mininet
@@ -27,7 +20,6 @@ from mininet.util import (quietRun, fixLimits, numCores, ensureRoot,
 from mininet.link import Link, Intf, TCLink, TCULink
 from mininet.nodelib import NAT
 from mininet.log import info, error, debug, output, warn
-
 from mn_wifi.node import AccessPoint, AP, Station, Car, \
     OVSKernelAP
 from mn_wifi.wmediumdConnector import w_starter, w_server, \
