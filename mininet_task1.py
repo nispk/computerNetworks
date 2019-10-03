@@ -242,4 +242,3 @@ if __name__ == '__main__':
     mobility = True if '-m' in sys.argv else False
     topology(mobility)
     #tl.start(block = True)
-
