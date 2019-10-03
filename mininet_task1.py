@@ -9,7 +9,6 @@ It is a full mesh network
    .        .
 sta1 ----- sta2"""
 
-
 import sys , math
 from mininet.node import Controller
 from mininet.log import setLogLevel, info, output
@@ -80,8 +79,8 @@ def attenuation_csv(stations,counter,mobility):
     if mobility:
         counter = counter
     else:
-        counter = 6
-    while (counter<=6):
+        counter = 1
+    for k in range(counter):
         sta_attn = {keys: [] for keys in stations}
         for src in stations:
             for dst in stations:
@@ -97,29 +96,16 @@ def attenuation_csv(stations,counter,mobility):
         df = pd.DataFrame(export_data, columns=[str(i.params['ip']) for i in stations])
 
         df.to_csv(filename, index=None, header=True)
-        print('export to csv')
-        counter = counter + 1
-
-#tl = Timeloop()
+       
 def testLinkLimit(net, bw):
     "Run bandwidth limit test"
     info( '*** Testing network %.2f Mbps bandwidth limit\n' % bw )
     net.iperf()
 
-
 def get_cpu_usage(stations,duration=1,count=1):
-    """run CPU limit test with 'while true' processes.
-    cpu: desired CPU fraction of each host
-    duration: test duration in seconds (integer)
-    returns a single list of measured CPU fractions as floats.
-    """
-    #pid = startProcSta(stations) #start a process on stations to create cpuacct file
-    
-
     outputs = {}
     time = {}
     t_start = {}
-
     for station in stations:
         ip = station.params['ip']
         outputs[str(ip)] = []
@@ -144,13 +130,9 @@ def get_cpu_usage(stations,duration=1,count=1):
 
     filename = 'cpu_usage.csv'
     df = pd.DataFrame(outputs, columns=[str(i.params['ip']) for i in stations])
-
     df.to_csv(filename, index=None, header=True)
-    print('data exported')
-
     output('*** Results: %s\n' % outputs)
     #return outputs
-
 
 
 def topology(mobility):
@@ -171,7 +153,6 @@ def topology(mobility):
 
     net = Mininet_wifi(link = wmediumd, wmediumd_mode = interference, controller= Controller, station = Station)
 
-
     info("*** Creating nodes\n")
     if mobility:
         sta1 = net.addStation('sta1', recordNodeParams =True)
@@ -188,8 +169,6 @@ def topology(mobility):
         sta5 = net.addStation('sta5', position='60,50,2', recordNodeParams =True)
 
     stations = [sta1,sta2,sta3,sta4,sta5]
-
-
 
     info("*** Configuring Propagation Model\n")
     net.setPropagationModel(model="logDistance", exp=4)
@@ -208,7 +187,6 @@ def topology(mobility):
                 channel=5, ht_cap='HT40+') #, passwd='thisisreallysecret')
     net.addLink(sta5, cls=adhoc, ssid='meshNet',
                 channel=5, ht_cap='HT40+') #, passwd='thisisreallysecret')
-
 
     if mobility:
         net.plotGraph(max_x=100, max_y=100)
@@ -233,9 +211,7 @@ def topology(mobility):
 
     info("*** Stopping network\n")
     net.stop()
-
-
-
+     
 
 if __name__ == '__main__':
     setLogLevel('info')
