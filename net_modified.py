@@ -258,16 +258,52 @@ class Mininet_wifi(Mininet):
         return sta
 
 
-    def get_processing_capacity(self,sta):
-       x = sta.cmd('top -b -d1 -n1|grep -i "Cpu(s)"|cut -c 37-40')
-       print 'processsing capacity of',sta, 'is', x
 
-    def processing_capacity_csv(self,nodes):
-        processing_capacity = []
-        for sta in nodes:
-            x = sta.cmd('top -b -d1 -n1|grep -i "Cpu(s)"|cut -c 37-40')
-            processing_capacity.append(x)
-        np.savetxt('cpu_usage.csv',[p for p in zip(nodes,processing_capacity)],    delimiter=',', fmt='%s')
+
+    def get_cpu_usage(self,duration,count):
+        """run CPU limit test with 'while true' processes.
+        cpu: desired CPU fraction of each host
+        duration: test duration in seconds (integer)
+        returns a single list of measured CPU fractions as floats.
+        """
+        #pid = startProcSta(stations) #start a process on stations to create cpuacct file
+        """Example/test of link and CPU bandwidth limits
+               bw: interface bandwidth limit in Mbps
+               cpu: cpu limit as fraction of overall CPU time"""
+
+        outputs = {}
+        time = {}
+        t_start = {}
+
+        for station in stations:
+            ip = station.params['ip']
+            outputs[str(ip)] = []
+            with open('/sys/fs/cgroup/cpuacct/%s/cpuacct.usage'
+                      % station, 'r') as f:
+                time[station] = float(f.read())
+            t_start[station] = station.cmd('date +%s%N')
+
+        for _ in range(count):
+            sleep(duration)
+            for station in stations:
+                ip = station.params['ip']
+                with open('/sys/fs/cgroup/cpuacct/%s/cpuacct.usage'
+                          % station, 'r') as f:
+                    readTime = float(f.read())
+                t_stop = station.cmd('date +%s%N')
+                outputs[str(ip)].append(((readTime - time[station])
+                                      / (int(t_stop)-int(t_start[station])))*100)
+
+                time[station] = readTime
+                t_start[station] = station.cmd('date +%s%N')
+
+        filename = 'cpu_usage.csv'
+        df = pd.DataFrame(outputs, columns=[str(i.params['ip']) for i in stations])
+
+        df.to_csv(filename, index=None, header=True)
+        print('data exported')
+
+        output('*** Results: %s\n' % outputs)
 
     def pathloss_logDistance(self,sta,dist,wlan):
              """Path Loss Model:
@@ -293,10 +329,8 @@ class Mininet_wifi(Mininet):
              calculated
              exponent: The exponent of the Path Loss propagation model, where 2
              is for propagation in free space
-             (dist) is the distance between the transmitter and the receiver(m)"""
-             #sta1 = self.nameToNode[staa]
-             #sta2 = self.nameToNode[stab]
-            # print ('***************',type(sta1),type(exp))
+             (dist) is the distance between the transmitter and the receiver (m)"""
+
              gr = sta1.params['antennaGain'][0]
              pt = sta2.params['txpower'][0]
              gt = sta2.params['antennaGain'][0]
@@ -309,7 +343,6 @@ class Mininet_wifi(Mininet):
              b = y[1]-x[1]
              c = y[2]-x[2]
              d = math.sqrt((a**2)+(b**2)+(c**2))
-             #print 'distance is ',d
              if d == 0:
                  d = 0.1
              pldb = 10 * exp * math.log10(d / ref_d)
@@ -317,28 +350,25 @@ class Mininet_wifi(Mininet):
              attn = sta1.params['txpower'][0]-rssi
              return attn
 
-    def attenuation_csv(self,nodes,counter):
+    def attenuation_csv(self,counter):
         attn = 0
-
-        #print('%%%%%%%%%%%%%%%%%')
+        stations = self.stations
         while (counter<=6):
-            #print('is this working?')
-            sta_attn = {keys: [] for keys in nodes}
-            for src in nodes:
-                for dst in nodes:
+            sta_attn = {keys: [] for keys in stations}
+            for src in stations:
+                for dst in stations:
                     if(src == dst):
                         sta_attn[src].append(0)
                     else:
                         attn = self.logDistance(src,dst,4)
                         sta_attn[src].append(attn)
-            export_data = {'stations':nodes}
-            for i in nodes:
-                export_data[str(i)]= sta_attn[i]
+            export_data = {'stations':stations}
+            for i in stations:
+                export_data[str(i.params['ip'])]= sta_attn[i]
             filename = 'attenuation_'+str(counter)+'.csv'
-            df = pd.DataFrame(export_data, columns=['stations']+[str(i) for i in nodes])
+            df = pd.DataFrame(export_data, columns=[str(i.params['ip']) for i in stations])
 
             df.to_csv(filename, index=None, header=True)
-            print('export to csv')
             counter = counter + 1
 
 
@@ -1236,15 +1266,18 @@ class Mininet_wifi(Mininet):
         pct = cpu * 100
         info('*** Testing CPU %.0f%% bandwidth limit\n' % pct)
         stations = self.hosts
+
         cores = int(quietRun('nproc'))
         # number of processes to run a while loop on per host
         num_procs = int(ceil(cores * cpu))
+        print ('number of processes to run',num_procs)
         pids = {}
         for s in stations:
             pids[s] = []
             for _core in range(num_procs):
                 s.cmd('while true; do a=1; done &')
                 pids[s].append(s.cmd('echo $!').strip())
+            print ('the pid in station %s',pids[s],s)
         outputs = {}
         time = {}
         # get the initial cpu time for each host
@@ -1268,9 +1301,12 @@ class Mininet_wifi(Mininet):
         cpu_fractions = []
         for _host, outputs in outputs.items():
             for pct in outputs:
-                cpu_fractions.append(pct)
+                cpu_fractions.append((pct, _host))
         output('*** Results: %s\n' % cpu_fractions)
+        print ('cpu_fractions is',cpu_fractions)
         return cpu_fractions
+
+
 
     def get_distance(self, src, dst):
         """Gets the distance between two nodes
