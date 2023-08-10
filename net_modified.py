@@ -2,20 +2,13 @@
     Mininet-WiFi: A simple networking testbed for Wireless OpenFlow/SDWN!
 author: Ramon Fontes (ramonrf@dca.fee.unicamp.br)"""
 import pandas as pd
-import math
 import numpy as np
-import os
-import random
-import re
-import sys
+import os , math ,random, re, sys, select, signal
 from sys import version_info as py_version_info
-import select
-import signal
 from time import sleep
 from itertools import chain, groupby
 from math import ceil
 from six import string_types
-
 from mininet.cli import CLI
 from mininet.term import cleanUpScreens, makeTerms
 from mininet.net import Mininet
@@ -27,7 +20,6 @@ from mininet.util import (quietRun, fixLimits, numCores, ensureRoot,
 from mininet.link import Link, Intf, TCLink, TCULink
 from mininet.nodelib import NAT
 from mininet.log import info, error, debug, output, warn
-
 from mn_wifi.node import AccessPoint, AP, Station, Car, \
     OVSKernelAP
 from mn_wifi.wmediumdConnector import w_starter, w_server, \
@@ -257,20 +249,9 @@ class Mininet_wifi(Mininet):
         self.nameToNode[name] = sta
         return sta
 
-
-
-
+    
     def get_cpu_usage(self,duration,count):
-        """run CPU limit test with 'while true' processes.
-        cpu: desired CPU fraction of each host
-        duration: test duration in seconds (integer)
-        returns a single list of measured CPU fractions as floats.
-        """
-        #pid = startProcSta(stations) #start a process on stations to create cpuacct file
-        """Example/test of link and CPU bandwidth limits
-               bw: interface bandwidth limit in Mbps
-               cpu: cpu limit as fraction of overall CPU time"""
-
+        stations = self.stations
         outputs = {}
         time = {}
         t_start = {}
@@ -353,7 +334,7 @@ class Mininet_wifi(Mininet):
     def attenuation_csv(self,counter):
         attn = 0
         stations = self.stations
-        while (counter<=6):
+        for k in range(counter):
             sta_attn = {keys: [] for keys in stations}
             for src in stations:
                 for dst in stations:
@@ -369,7 +350,6 @@ class Mininet_wifi(Mininet):
             df = pd.DataFrame(export_data, columns=[str(i.params['ip']) for i in stations])
 
             df.to_csv(filename, index=None, header=True)
-            counter = counter + 1
 
 
     def add6LoWPAN(self, name, cls=None, **params):

@@ -9,7 +9,6 @@ It is a full mesh network
    .        .
 sta1 ----- sta2"""
 
-
 import sys , math
 from mininet.node import Controller
 from mininet.log import setLogLevel, info, output
@@ -48,6 +47,7 @@ def pathloss_logDistance(sta,dist,wlan):
 
          return pathLoss_
 
+
 def logDistance(sta1,sta2,exp):
          """Log Distance Propagation Loss Model:
          ref_d (m): The distance at which the reference loss is
@@ -80,8 +80,8 @@ def attenuation_csv(stations,counter,mobility):
     if mobility:
         counter = counter
     else:
-        counter = 6
-    while (counter<=6):
+        counter = 1
+    for k in range(counter):
         sta_attn = {keys: [] for keys in stations}
         for src in stations:
             for dst in stations:
@@ -97,31 +97,16 @@ def attenuation_csv(stations,counter,mobility):
         df = pd.DataFrame(export_data, columns=[str(i.params['ip']) for i in stations])
 
         df.to_csv(filename, index=None, header=True)
-        print('export to csv')
-        counter = counter + 1
-
-#tl = Timeloop()
+       
 def testLinkLimit(net, bw):
     "Run bandwidth limit test"
     info( '*** Testing network %.2f Mbps bandwidth limit\n' % bw )
     net.iperf()
 
-
 def get_cpu_usage(stations,duration=1,count=1):
-    """run CPU limit test with 'while true' processes.
-    cpu: desired CPU fraction of each host
-    duration: test duration in seconds (integer)
-    returns a single list of measured CPU fractions as floats.
-    """
-    #pid = startProcSta(stations) #start a process on stations to create cpuacct file
-    """Example/test of link and CPU bandwidth limits
-           bw: interface bandwidth limit in Mbps
-           cpu: cpu limit as fraction of overall CPU time"""
-
     outputs = {}
     time = {}
     t_start = {}
-
     for station in stations:
         ip = station.params['ip']
         outputs[str(ip)] = []
@@ -130,7 +115,7 @@ def get_cpu_usage(stations,duration=1,count=1):
             time[station] = float(f.read())
         t_start[station] = station.cmd('date +%s%N')
 
-    for _ in range(count):
+    for _ in range(count): # count decides number of screenshots of cpu_usage for each station to be taken.
         sleep(duration)
         for station in stations:
             ip = station.params['ip']
@@ -146,13 +131,9 @@ def get_cpu_usage(stations,duration=1,count=1):
 
     filename = 'cpu_usage.csv'
     df = pd.DataFrame(outputs, columns=[str(i.params['ip']) for i in stations])
-
     df.to_csv(filename, index=None, header=True)
-    print('data exported')
-
     output('*** Results: %s\n' % outputs)
     #return outputs
-
 
 
 def topology(mobility):
@@ -168,11 +149,10 @@ def topology(mobility):
                     info( '*** RT Scheduler is not enabled in your kernel. '
                           'Skipping this test\n' )
                     continue
-            Station = custom(CPULimitedStation, sched=sched, cpu=0.5)
+            Station = custom(CPULimitedStation, sched=sched, cpu=0.5)  #cpu: cpu limit as fraction of overall CPU time. each station assigned cpu limit using CPULimitedStation class
 
 
     net = Mininet_wifi(link = wmediumd, wmediumd_mode = interference, controller= Controller, station = Station)
-
 
     info("*** Creating nodes\n")
     if mobility:
@@ -191,8 +171,6 @@ def topology(mobility):
 
     stations = [sta1,sta2,sta3,sta4,sta5]
 
-
-
     info("*** Configuring Propagation Model\n")
     net.setPropagationModel(model="logDistance", exp=4)
 
@@ -210,7 +188,6 @@ def topology(mobility):
                 channel=5, ht_cap='HT40+') #, passwd='thisisreallysecret')
     net.addLink(sta5, cls=adhoc, ssid='meshNet',
                 channel=5, ht_cap='HT40+') #, passwd='thisisreallysecret')
-
 
     if mobility:
         net.plotGraph(max_x=100, max_y=100)
@@ -235,13 +212,10 @@ def topology(mobility):
 
     info("*** Stopping network\n")
     net.stop()
-
-
-
+     
 
 if __name__ == '__main__':
     setLogLevel('info')
     mobility = True if '-m' in sys.argv else False
     topology(mobility)
     #tl.start(block = True)
-
