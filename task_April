@@ -1,0 +1,13 @@
+task1: print 'Hello World!' in Marvelo window
+
+task2: create a simple network with one pipe between 2 tasks, where second task performs an operation on the input obtained from first task
+
+task3: create a simple network with one pipe between 2 tasks, that sends a single array between the tasks
+
+task4: create multiple arrays and transfer the arrays in batches between 2 nodes using 1 pipe. *******code not found
+
+task5: write a python code that will print output in a new window *******code not found
+
+task6: write a python code that will generate 2 new windows. One window will do computation and the output is displayed in the other window.*******code not written
+
+task7: write a python code that will print the MARVELO output in the new window
